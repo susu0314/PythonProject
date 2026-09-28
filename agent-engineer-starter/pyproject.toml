@@ -1,0 +1,20 @@
+[project]
+name = "agent-engineer-starter"
+version = "0.1.0"
+description = "AI Agent 工程化参考实现"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.8", "pydantic-settings>=2.4", "pyyaml>=6.0", "rich>=13.7"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov>=5.0"]
+
+[project.scripts]
+agent-demo = "examples.demo_ticket_classification:main"
+agent-troubleshoot = "examples.demo_troubleshooting:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src", "examples"]
