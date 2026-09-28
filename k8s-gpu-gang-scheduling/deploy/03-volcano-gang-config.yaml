@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: volcano-scheduler-config-reference
+  namespace: volcano-system
+data:
+  README: |
+    Expected scheduler plugin: gang
+    Typical actions: enqueue, allocate, backfill

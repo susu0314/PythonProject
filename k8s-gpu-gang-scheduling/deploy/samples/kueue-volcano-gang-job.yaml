@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pytorch-gang-training
+  namespace: ml-training
+  labels:
+    kueue.x-k8s.io/queue-name: gpu-queue
+  annotations:
+    scheduling.volcano.sh/group-min-member: "4"
+spec:
+  parallelism: 4
+  completions: 4
+  template:
+    spec:
+      schedulerName: volcano
+      restartPolicy: Never
+      containers:
+        - name: worker
+          image: pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
+          command: ["python", "-c"]
+          args: ["import torch; print(torch.cuda.is_available())"]
+          resources:
+            requests:
+              nvidia.com/gpu: "1"
+            limits:
+              nvidia.com/gpu: "1"

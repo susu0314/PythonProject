@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: single-gpu-job
+  namespace: team-b
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: worker
+          image: pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
+          command: ["python", "-c"]
+          args: ["import torch; print(torch.cuda.is_available())"]
+          resources:
+            requests:
+              nvidia.com/gpu: "1"
+            limits:
+              nvidia.com/gpu: "1"
